@@ -7,6 +7,24 @@ and notifies operators through alerts and dashboards.
 
 ---
 
+## High Level Architecture
+
+IoT Devices / GPS / Cameras
+        ↓
+    Data Ingestion API
+        ↓
+   Detection Engine
+        ↓
+   Alert System
+        ↓
+     Backend API
+        ↓
+      Database
+        ↓
+ Frontend Dashboard
+
+---
+
 ## System Components
 
 ### 1. IoT / GPS Devices
@@ -14,12 +32,12 @@ and notifies operators through alerts and dashboards.
 - Cameras
 - Sensors
 - Mobile devices
-
 These devices send location and event data to the backend.
 
----
+### 2. Data Ingestion API
+Receives device data and events from IoT devices and external systems.
 
-### 2. Detection Engine
+### 3. Detection Engine
 Analyzes incoming data and determines suspicious behavior based on:
 - Geofence violations
 - Repeated appearances
@@ -27,9 +45,13 @@ Analyzes incoming data and determines suspicious behavior based on:
 - Risk scoring
 - Pattern detection
 
----
+### 4. Alert & Notification System
+- Push notifications
+- Email alerts
+- Dashboard alerts
+- Escalation rules
 
-### 3. Backend API
+### 5. Backend API
 Handles:
 - Device registration
 - Data ingestion
@@ -37,9 +59,7 @@ Handles:
 - Alert creation
 - Case management
 
----
-
-### 4. Database
+### 6. Database
 Stores:
 - Users
 - Devices
@@ -50,29 +70,13 @@ Stores:
 - Risk scores
 - Audit logs
 
----
-
-### 5. Alert & Notification System
-- Push notifications
-- Email alerts
-- Dashboard alerts
-- Escalation rules
-
----
-
-### 6. Frontend Dashboard
+### 7. Frontend Dashboard
 Used by operators to:
 - View map
 - View alerts
 - Manage cases
 - Monitor devices
 - Analyze risk
-
----
-
-## Architecture Flow
-
-Device → Backend API → Detection Engine → Database → Alert System → Dashboard
 
 ---
 
@@ -106,7 +110,7 @@ Device → Backend API → Detection Engine → Database → Alert System → Da
 - Authentication / Authorization
 - Audit logging
 
-- ---
+---
 
 ## Scalability Design
 
