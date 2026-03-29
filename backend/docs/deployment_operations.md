@@ -199,3 +199,88 @@ Key responsibilities:
 	•	System maintenance
 
 ⸻
+
+⸻
+
+NSD – Deployment & Operations
+
+1. Deployment Architecture Diagram
+
+
+Internet / Devices
+        ↓
+   Load Balancer / API Gateway
+        ↓
+     Backend API
+        ↓
+   Message Queue
+        ↓
+   Detection Engine Workers
+        ↓
+      Database
+        ↓
+   Alert / Notification Service
+        ↓
+ Frontend Dashboard
+
+Monitoring / Logging / Backup
+        ↓
+   Prometheus / ELK / S3
+
+
+
+⸻
+
+2. Deployment Strategy
+
+Deployment Strategy
+
+Deployment methods:
+	•	Rolling deployment
+	•	Blue-Green deployment
+	•	Canary deployment
+
+Purpose:
+	•	Minimize downtime
+	•	Reduce deployment risk
+	•	Allow rollback if failure occurs
+
+Rollback procedure:
+	1.	Detect deployment failure
+	2.	Stop new deployment
+	3.	Switch traffic to previous version
+	4.	Restore previous container image
+	5.	Verify system health
+
+
+⸻
+
+3. Roles & Responsibilities
+
+Operations Roles
+
+Role	Responsibility
+System Admin	Infrastructure management
+Backend Engineer	API and detection engine
+Security Engineer	Security monitoring and incident response
+DB Admin	Database performance and backup
+Operator	Alert monitoring and case handling
+DevOps Engineer	CI/CD and deployment automation
+
+
+⸻
+
+4. SLA / Availability（超重要）
+
+Service Availability Targets
+
+Item	Target
+System Availability	99.9%
+API Response Time	< 500ms
+Alert Delay	< 10 seconds
+Backup Retention	30 days
+Log Retention	90 days
+Incident Response Start	< 15 minutes
+
+
+⸻
