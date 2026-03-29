@@ -1,26 +1,24 @@
-# nsd
-NSD – Network Suspicious Detection Project
-# NSD – Network Suspicious Detection
+# NSD Project
+## Network / Neighborhood Suspicious Detection System
 
-NSD is an open project for detecting suspicious behavior, stalking risks,
-and anomaly activities using network, cloud, mobile and IoT technologies.
+NSD is a suspicious detection and safety support platform
+using IoT devices, GPS tracking, monitoring systems, and alert management.
 
-## Vision
-Protect people, not only systems.
+---
 
-## Possible Use Cases
-- Stalker detection
-- Distance alert systems
-- Elderly / dementia monitoring
-- Child safety / school safety
-- Suspicious network behavior detection
-- Community safety systems
+## System Components
 
-## Architecture (Concept)
-Mobile / GPS / IoT → Cloud → Detection Engine → Alert → Dashboard
+- Detection Engine
+- Backend API
+- Database
+- Alert & Notification System
+- Frontend Dashboard
+- IoT / GPS Device Integration
+- Security & Privacy System
+- Deployment & Operations
+- Pilot Test & Field Trial
+- Documentation & Website
 
-## Status
-Planning & architecture design phase.
+---
 
-## Contributors
-Contributors and collaborators are welcome.
+## Repository Structure
