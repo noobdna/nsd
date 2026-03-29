@@ -1,5 +1,58 @@
 ⸻
+---
 
+## Website Structure
+
+The documentation website should contain the following sections:
+
+- Home
+- About NSD
+- System Architecture
+- Database Design
+- Detection Logic
+- Alert System
+- Backend API
+- Frontend Dashboard
+- Security & Privacy
+- Deployment & Operations
+- IoT / GPS Integration
+- Pilot Test
+- Roadmap
+- Developer Guide
+- Contact / Community
+
+---
+
+## Technology Options
+
+Possible documentation website technologies:
+
+- GitHub Pages
+- MkDocs
+- Docusaurus
+- Notion (public)
+- Static HTML site
+- Cloudflare Pages
+
+Recommended:
+MkDocs or Docusaurus for technical documentation.
+
+---
+
+## Purpose of Public Website
+
+The public NSD website should:
+
+- Explain the project concept
+- Show system architecture
+- Publish documentation
+- Attract collaborators
+- Attract pilot users
+- Attract investors / partners
+- Provide contact information
+
+NSD is not only a software project,
+but also a security platform concept.
 NSD – Documentation & Website
 
 Overview
