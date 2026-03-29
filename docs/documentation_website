@@ -1,1 +1,224 @@
+⸻
 
+NSD – Documentation & Website
+
+Overview
+
+This document describes the documentation structure and website for the NSD (Network Suspicious Detection) project.
+
+The documentation website provides technical documentation, system architecture information, API references, deployment guides, and project information for developers, operators, and stakeholders.
+
+⸻
+
+Documentation Goals
+
+The documentation site should:
+	•	Explain what NSD is
+	•	Describe system architecture
+	•	Provide developer documentation
+	•	Provide API documentation
+	•	Provide deployment instructions
+	•	Provide security and privacy policies
+	•	Provide project roadmap and updates
+	•	Help onboard new developers and contributors
+
+⸻
+
+Documentation Structure
+
+Recommended documentation structure:
+
+Documentation Website
+│
+├── Home
+├── About NSD
+├── System Architecture
+├── Database Design
+├── Detection Logic
+├── Alert System
+├── Backend API
+├── Frontend Dashboard
+├── IoT / GPS Integration
+├── Security & Privacy
+├── Deployment & Operations
+├── Pilot Test
+├── Roadmap
+└── Contact / Contribution
+
+
+⸻
+
+Website Sections
+
+1. Home
+
+Main landing page explaining NSD.
+
+Contents:
+	•	Project overview
+	•	Purpose of NSD
+	•	Key features
+	•	System diagram
+	•	Links to documentation
+	•	Latest updates
+
+⸻
+
+2. About NSD
+
+Explains the project background and goals.
+
+Include:
+	•	Why NSD was created
+	•	Use cases
+	•	Target users
+	•	System concept
+	•	Vision of the project
+
+⸻
+
+3. Technical Documentation
+
+This section links to all technical documents:
+	•	System Architecture
+	•	Database Design
+	•	Detection Logic
+	•	Alert System
+	•	Backend API
+	•	Frontend Dashboard
+	•	IoT / GPS Integration
+	•	Security & Privacy
+	•	Deployment & Operations
+	•	Pilot Test
+
+This section is mainly for developers and engineers.
+
+⸻
+
+Documentation Tools
+
+Recommended tools for documentation website:
+
+Option 1 – GitHub Pages
+	•	Host documentation directly from GitHub
+	•	Use Markdown
+	•	Free hosting
+	•	Easy updates
+
+Option 2 – MkDocs
+
+Documentation generator for technical projects.
+
+Features:
+	•	Markdown based
+	•	Clean documentation theme
+	•	Navigation sidebar
+	•	Search
+	•	Easy deployment
+
+Option 3 – Docusaurus
+	•	Documentation website framework
+	•	Versioned docs
+	•	Blog support
+	•	Good for large projects
+
+⸻
+
+Recommended Documentation Stack
+
+Recommended stack for NSD:
+
+GitHub Repository
+      ↓
+Markdown Documents
+      ↓
+MkDocs / Docusaurus
+      ↓
+GitHub Pages Hosting
+      ↓
+Documentation Website
+
+
+⸻
+
+Example Documentation Site Structure
+
+nsd-docs/
+│
+├── index.md
+├── about.md
+├── architecture.md
+├── database.md
+├── detection.md
+├── alerts.md
+├── api.md
+├── frontend.md
+├── iot.md
+├── security.md
+├── deployment.md
+├── pilot.md
+├── roadmap.md
+└── contribution.md
+
+
+⸻
+
+Target Users of Documentation
+
+The documentation website is intended for:
+
+User Type	Purpose
+Developers	Build and extend the system
+Operators	Run and monitor NSD
+Security Teams	Review alerts and incidents
+Organizations	Evaluate NSD
+Contributors	Join the project
+Investors / Partners	Understand the project
+Community	Learn about NSD
+
+
+⸻
+
+Future Documentation Expansion
+
+Future documentation may include:
+	•	API reference documentation
+	•	SDK documentation
+	•	Installation guides
+	•	Tutorial guides
+	•	Case studies
+	•	Pilot test reports
+	•	Security whitepaper
+	•	System performance reports
+	•	User manuals
+	•	Operator manuals
+
+⸻
+
+Documentation Principles
+
+NSD documentation should be:
+	•	Clear
+	•	Technical but understandable
+	•	Structured
+	•	Version controlled
+	•	Public where possible
+	•	Security-sensitive information separated
+	•	Continuously updated
+	•	Accessible to international users (English recommended)
+
+⸻
+
+Summary
+
+The NSD documentation website will serve as:
+	•	Technical documentation portal
+	•	Project website
+	•	Developer onboarding platform
+	•	Deployment guide
+	•	Security and architecture reference
+	•	Community and contributor entry point
+
+The documentation website is an important part of the NSD project and should be maintained alongside system development.
+
+⸻
