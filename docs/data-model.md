@@ -65,3 +65,33 @@ This document describes the database structure for NSD (Network Suspicious Detec
 - action
 - timestamp
 - details
+
+---
+
+## Entity Relationships
+
+Users → Devices  
+Devices → Events  
+Events → Risk Scores  
+Events → Alerts  
+Alerts → Cases  
+Users → Audit Logs  
+Locations → Geo Fence / Alerts  
+
+System Flow:
+
+Device → Event → Risk Score → Alert → Case → Operator Action → Audit Log
+
+---
+
+## Future Tables (Planned)
+
+- Organizations
+- Device Groups
+- Alert Rules
+- Notification Settings
+- Evidence Files (images, logs, video)
+- Reports
+- API Keys
+- Access Control / Permissions
+- 
