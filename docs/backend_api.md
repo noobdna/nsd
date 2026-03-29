@@ -400,3 +400,29 @@ It connects devices, detection logic, alerts, cases, dashboard views,
 and security controls into one manageable platform.
 A well-designed backend API makes the whole system scalable, secure,
 and ready for real-world operation.
+## API Versioning
+
+All APIs should be versioned to allow backward compatibility.
+
+Example:
+- /api/v1/users
+- /api/v1/devices
+- /api/v2/...
+
+Versioning strategy:
+- Major version in URL
+- Backward compatible changes do not change version
+- Breaking changes require new version
+## Authentication Flow
+
+Typical authentication flow:
+
+1. User logs in with email/password
+2. Backend validates credentials
+3. Backend issues JWT access token
+4. Client includes token in Authorization header
+5. Backend validates token for each request
+
+Header example:
+
+Authorization: Bearer <access_token>
