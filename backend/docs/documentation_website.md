@@ -297,3 +297,19 @@ for the NSD project and support development, operations,
 partners, and public project presentation.
 
 ⸻
+---
+
+## Documentation Publishing Workflow
+
+Suggested workflow for maintaining documentation:
+
+1. Write documentation in Markdown in the GitHub repository
+2. Review and update documents regularly
+3. Publish documentation via GitHub Pages / MkDocs / Docusaurus
+4. Keep architecture and API documentation updated with system changes
+5. Use documentation for onboarding developers and partners
+6. Use documentation for pilot users and operators
+7. Maintain version history of documentation
+
+Documentation should be treated as part of the system,
+not as an afterthought.
