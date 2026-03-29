@@ -139,3 +139,17 @@ In the future, NSD can integrate with:
 - Disaster monitoring systems
 
 NSD can evolve into a city-scale safety platform.
+
+---
+
+## Data Flow
+
+1. Devices (GPS, cameras, sensors) send event and location data.
+2. Data Ingestion API receives and validates incoming data.
+3. Events are sent to the Detection Engine.
+4. Detection Engine analyzes behavior and calculates risk scores.
+5. If suspicious behavior is detected, an alert is generated.
+6. Alerts are stored in the database.
+7. Alert & Notification System sends notifications.
+8. Operators view alerts and cases in the Frontend Dashboard.
+9. Operators can create cases, assign tasks, and update status.
