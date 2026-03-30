@@ -1,230 +1,315 @@
 ⸻
 
-NSD – Detection Logic & Rule Engine
+NSD – Detection Logic
+
+Docs/detection_logic.md
 
 Overview
 
-This document describes the detection logic and rule engine used in the NSD (Network Suspicious Detection) system.
+This document describes the detection logic used in the NSD (Network Suspicious Detection) system.
 
-The detection engine analyzes incoming device data, GPS data, user activity, and system events to identify suspicious behavior and generate alerts.
+The Detection Engine analyzes incoming events from devices, network logs, sensors, authentication systems, and user activity logs to identify suspicious behavior patterns and generate risk scores, alerts, and investigation cases.
 
-The system is rule-based in the initial phase and may later incorporate machine learning–based anomaly detection.
+The detection system is designed to be:
+	•	behavior-based
+	•	rule-based
+	•	score-based
+	•	explainable
+	•	auditable
+	•	extensible
+	•	near real-time capable
+	•	suitable for security, safety, and anomaly detection
 
-⸻
-
-Detection Objectives
-
-The detection engine aims to:
-	•	Detect suspicious movement patterns
-	•	Detect abnormal device behavior
-	•	Detect unusual activity times
-	•	Detect geofence violations
-	•	Detect device tampering or signal loss
-	•	Assign risk scores to events
-	•	Generate alerts for operators
-	•	Support investigation and case management
-
-⸻
-
-Input Data for Detection
-
-The detection engine uses the following data:
-
-Device Data
-	•	Device ID
-	•	Device type
-	•	Device owner
-	•	Device status
-	•	Battery level
-	•	Signal strength
-	•	Last communication time
-
-GPS / Location Data
-	•	Latitude
-	•	Longitude
-	•	Speed
-	•	Direction
-	•	Timestamp
-	•	Geofence area
-
-Event Data
-	•	Login attempts
-	•	Access logs
-	•	Device movement events
-	•	System events
-	•	Sensor triggers
-
-Historical Data
-	•	Past movement patterns
-	•	Normal activity hours
-	•	Previous alerts
-	•	Device usage history
-
-⸻
-
-Detection Rule Engine
-
-The NSD detection engine uses rule-based logic.
-
-Each rule generates a risk score.
-Multiple rules can be combined to increase the total risk level.
-
-⸻
-
-Detection Rules
-
-Rule 1 – Geofence Breach
-
-If a device enters or exits a restricted area unexpectedly, generate a suspicious event.
-
-Example:
-	•	Device leaves allowed area
-	•	Device enters restricted zone
-	•	Device crosses boundary multiple times
-
-Risk Score: Medium
-
-⸻
-
-Rule 2 – Unusual Time Activity
-
-If activity occurs during unusual hours, increase risk score.
-
-Example:
-	•	Device movement at midnight
-	•	Login attempts at unusual hours
-	•	Activity outside normal working hours
-
-Risk Score: Low to Medium
-
-⸻
-
-Rule 3 – Repeated Abnormal Movement
-
-If repeated short-interval movements occur in unusual patterns, flag as suspicious.
-
-Example:
-	•	Device appears in multiple distant locations quickly
-	•	Repeated back-and-forth movement
-	•	Impossible travel speed
-
-Risk Score: Medium
-
-⸻
-
-Rule 4 – Device Tampering / Signal Loss
-
-If a device suddenly stops sending data or shows inconsistent telemetry.
-
-Example:
-	•	GPS signal lost suddenly
-	•	Device offline unexpectedly
-	•	Battery removed
-	•	Signal strength drops abruptly
-
-Risk Score: Medium to High
-
-⸻
-
-Rule 5 – Multiple Failed Login Attempts
-
-If repeated login failures occur within a short period.
-
-Example:
-	•	5 failed logins within 10 minutes
-	•	Login attempts from multiple locations
-	•	Login attempts from unknown device
-
-Risk Score: Medium
-
-⸻
-
-Rule 6 – Risk Combination Logic
-
-Multiple low-risk events combined may become high risk.
-
-Example Combination:
-	•	Night activity + Geofence breach
-	•	Signal loss + Movement anomaly
-	•	Failed logins + New device login
-
-Combined Risk: High
-
-⸻
-
-Risk Scoring Model
-
-Risk Level	Score Range	Description
-Low	0 – 30	Minor anomaly
-Medium	31 – 70	Suspicious activity
-High	71 – 100	Highly suspicious
-Critical	100+	Immediate alert
-
-Example Risk Score Calculation
-
-Event	Score
-Night activity	+10
-Geofence breach	+30
-Signal loss	+25
-Repeated movement	+20
-Failed logins	+15
-
-Total Risk Score = Sum of all triggered rules
+The system does not rely only on signatures, but focuses on behavior patterns and anomalies.
 
 ⸻
 
 Detection Flow
 
-Detection engine workflow:
-	1.	Receive device/event data
-	2.	Validate data
-	3.	Check geofence rules
-	4.	Check time-based rules
-	5.	Check movement patterns
-	6.	Check device status
-	7.	Check login/activity anomalies
-	8.	Calculate risk score
-	9.	Determine risk level
-	10.	Generate alert if threshold exceeded
-	11.	Store event and risk score in database
+Detection Pipeline
+
+The detection process follows this pipeline:
+
+Event → Normalization → Rule Evaluation → Risk Scoring → Alert → Case
+
+Step-by-step Flow
+	1.	Event is received from Event API
+	2.	Event is normalized into a standard format
+	3.	Detection rules are evaluated
+	4.	Risk score is calculated
+	5.	If threshold exceeded → Alert created
+	6.	If severe → Case created
+	7.	All steps logged for audit
 
 ⸻
 
-Alert Trigger Threshold
+Event Normalization
+
+Different event sources produce different formats.
+The system converts all incoming data into a unified event structure.
+
+Normalized Event Structure
+
+Example:
+
+{
+  "event_id": "EVT-20260330-0001",
+  "timestamp": "2026-03-30T12:00:00Z",
+  "event_type": "login_failed",
+  "source_type": "authentication",
+  "device_id": "DEV-001",
+  "user_id": "USR-002",
+  "ip_address": "203.0.113.5",
+  "location_id": "LOC-001",
+  "severity": "low",
+  "raw_data": {}
+}
+
+Normalization ensures that the Detection Engine can process events consistently regardless of source.
+
+⸻
+
+Detection Categories
+
+The NSD Detection Engine focuses on behavior-based suspicious activity rather than malware signatures.
+
+Major Detection Categories
+
+1. Authentication Anomalies
+
+Examples:
+	•	repeated failed logins
+	•	login from unusual location
+	•	login at unusual time
+	•	impossible travel (Tokyo → New York in 1 hour)
+	•	multiple accounts from same IP
+	•	password reset abuse
+	•	login after account disable
+	•	login from TOR / VPN / suspicious ASN
+
+⸻
+
+2. Device Behavior Anomalies
+
+Examples:
+	•	device suddenly changes location
+	•	device goes offline frequently
+	•	device sends abnormal number of events
+	•	device firmware changes unexpectedly
+	•	device communicates with unknown servers
+	•	device IP address changes repeatedly
+
+⸻
+
+3. Network Behavior Anomalies
+
+Examples:
+	•	port scanning
+	•	repeated connection attempts
+	•	unusual traffic volume
+	•	access to restricted endpoints
+	•	repeated API failures
+	•	unusual protocol usage
+	•	abnormal DNS queries
+
+⸻
+
+4. Physical / GPS / Movement Anomalies
+
+Examples:
+	•	movement outside allowed area
+	•	movement during restricted time
+	•	device stopped unexpectedly
+	•	device moving too fast
+	•	device location spoofing suspicion
+
+⸻
+
+5. User Behavior Anomalies
+
+Examples:
+	•	unusual working hours
+	•	excessive downloads
+	•	unusual number of operations
+	•	repeated mistakes / failed operations
+	•	accessing many devices in short time
+	•	privilege escalation attempts
+
+⸻
+
+Rule-Based Detection
+
+The system supports rule-based detection logic.
+
+Rule Example
+
+Example rule:
+
+IF failed_login_count > 5 within 10 minutes
+THEN risk_score += 30
+
+Another example:
+
+IF login_location not in allowed_locations
+THEN risk_score += 40
+
+Rules are stored in the rules table in the database and can be updated without redeploying the system.
+
+⸻
+
+Risk Scoring Model
+
+Each event contributes to a risk score.
+
+Example Risk Score Weights
+
+Event Type	Score
+Failed login	+5
+Multiple failed logins	+20
+Login from new country	+40
+Device offline unexpectedly	+10
+Port scanning detected	+50
+Access denied repeatedly	+15
+Privilege escalation	+60
+
+Risk Score Thresholds
 
 Risk Score	Action
-0 – 30	Store event only
-31 – 70	Create alert
-71 – 100	High priority alert
-100+	Critical alert + notification
+0 – 19	Log only
+20 – 39	Low risk
+40 – 59	Medium risk → Alert
+60 – 79	High risk → Alert
+80+	Critical → Alert + Case
+
+Risk scores can be calculated for:
+	•	event
+	•	device
+	•	user
+	•	IP address
+	•	organization
+	•	location
+
+⸻
+
+Alert Generation Logic
+
+An alert is generated when:
+
+risk_score >= alert_threshold
+
+Example:
+
+IF risk_score >= 50
+→ create alert
+
+Alert includes:
+	•	related events
+	•	device
+	•	user
+	•	IP
+	•	risk score
+	•	severity
+	•	rule triggered
+
+⸻
+
+Case Creation Logic
+
+A case is created when:
+	•	risk score is very high
+	•	multiple alerts related
+	•	manual escalation
+	•	security incident confirmed
+	•	investigation required
+
+Example:
+
+IF risk_score >= 80
+→ create case automatically
+
+Or:
+
+IF 3 alerts within 1 hour for same device
+→ create case
 
 
 ⸻
 
-Future Enhancements
+Detection Engine Architecture
 
-Future detection improvements may include:
-	•	Machine learning anomaly detection
-	•	Behavioral pattern learning
-	•	Device fingerprinting
-	•	Network traffic anomaly detection
-	•	Face recognition / camera integration
-	•	Predictive risk scoring
-	•	Automated response (device lock / account disable)
-	•	Integration with SIEM systems
-	•	Integration with Cloudflare / AWS logs
-	•	AI-based suspicious pattern analysis
+Detection Engine Components
+
+The Detection Engine consists of:
+	1.	Event Normalizer
+	2.	Rule Engine
+	3.	Risk Scoring Engine
+	4.	Alert Engine
+	5.	Case Engine
+	6.	Audit Logger
+
+Logical Flow
+
+Event API
+   ↓
+Event Normalizer
+   ↓
+Rule Engine
+   ↓
+Risk Scoring Engine
+   ↓
+Alert Engine
+   ↓
+Case Engine
+   ↓
+Database
+
+
+⸻
+
+Future Detection Enhancements
+
+The detection engine may be extended with:
+	•	machine learning anomaly detection
+	•	behavior baseline modeling
+	•	peer group analysis
+	•	time-series anomaly detection
+	•	graph-based relationship detection
+	•	insider threat detection
+	•	fraud detection patterns
+	•	automated response (account lock, device isolation)
+	•	integration with SIEM / SOAR
+	•	threat intelligence feeds
+	•	reputation scoring (IP / ASN / domain)
 
 ⸻
 
 Summary
 
-The NSD detection engine:
-	•	Uses rule-based detection logic
-	•	Calculates risk scores from multiple events
-	•	Combines multiple low-risk signals into high-risk alerts
-	•	Generates alerts and investigation cases
-	•	Stores all detection data for analysis
-	•	Can later evolve into AI/ML detection system
+The NSD Detection Engine is based on:
+	•	Event normalization
+	•	Rule-based detection
+	•	Risk scoring
+	•	Alert generation
+	•	Case creation
+	•	Behavior analysis
+	•	Audit logging
+
+The detection pipeline is:
+
+Device / Logs / Sensors
+        ↓
+      Event
+        ↓
+   Detection Engine
+        ↓
+    Risk Score
+        ↓
+      Alert
+        ↓
+       Case
+        ↓
+   Investigation
+
+This detection logic forms the core intelligence layer of the NSD system.
 
 ⸻
