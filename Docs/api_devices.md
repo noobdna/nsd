@@ -1,23 +1,29 @@
+⸻
+
 NSD – Devices API
 
 Overview
 
 The Devices API manages devices that send data to the NSD (Network Suspicious Detection) system.
 
-Devices can include:
+Devices represent any source that can generate events, logs, telemetry, or activity data used for risk analysis and investigations.
+
+Devices may include:
 	•	IoT devices
 	•	GPS trackers
-	•	cameras
-	•	mobile devices
-	•	network sensors
-	•	access control devices
-	•	servers
-	•	routers
-	•	cloud systems
+	•	Cameras
+	•	Mobile devices
+	•	Network sensors
+	•	Access control devices
+	•	Servers
+	•	Routers
+	•	Cloud systems
 
-The Devices API supports:
+The Devices API is responsible for the full lifecycle and management of devices in the NSD platform.
+
+The API supports:
 	•	device registration
-	•	device listing
+	•	device listing and filtering
 	•	device details retrieval
 	•	device updates
 	•	device status updates
@@ -25,7 +31,7 @@ The Devices API supports:
 	•	device location assignment
 	•	device activity tracking
 	•	device risk score tracking
-	•	device deactivation
+	•	device deactivation (soft delete)
 	•	audit trail tracking
 
 ⸻
@@ -66,7 +72,7 @@ inactive	Device registered but not active
 offline	Device not seen for a period
 suspended	Device blocked due to risk
 compromised	Device suspected compromised
-decommissioned	Device retired
+decommissioned	Device retired / removed from service
 
 
 ⸻
@@ -83,7 +89,7 @@ Each device may have a risk score calculated based on:
 	•	linked alerts
 	•	linked cases
 
-Risk score range example:
+Risk Score Levels
 
 Score	Risk Level
 0–20	Low
@@ -95,6 +101,20 @@ Score	Risk Level
 ⸻
 
 API Endpoints
+
+Endpoint Summary
+
+Method	Endpoint	Description
+POST	/api/devices	Register device
+GET	/api/devices	List devices
+GET	/api/devices/{device_id}	Device details
+PUT	/api/devices/{device_id}	Update device
+PATCH	/api/devices/{device_id}/status	Update status
+PATCH	/api/devices/{device_id}/risk	Update risk score
+DELETE	/api/devices/{device_id}	Decommission device
+
+
+⸻
 
 Register Device
 
@@ -133,7 +153,7 @@ List Devices
 
 GET /api/devices
 
-Query parameters:
+Query Parameters
 
 Parameter	Description
 status	Filter by device status
@@ -145,7 +165,7 @@ risk_max	Maximum risk score
 last_seen_from	Last seen start time
 last_seen_to	Last seen end time
 
-Example:
+Example
 
 GET /api/devices?status=active&device_type=camera
 
@@ -156,7 +176,7 @@ Get Device Details
 
 GET /api/devices/{device_id}
 
-Response:
+Response
 
 {
   "device_id": "DEV-001",
@@ -176,8 +196,6 @@ Update Device
 PUT /api/devices/{device_id}
 
 Update device information.
-
-Example:
 
 {
   "device_name": "Front Gate Camera V2",
@@ -215,7 +233,7 @@ Deactivate Device
 
 DELETE /api/devices/{device_id}
 
-This does not remove the device from the database, but marks it as:
+Soft delete only:
 
 status = decommissioned
 
@@ -224,7 +242,7 @@ status = decommissioned
 
 Device Activity Tracking
 
-The system should track:
+The system should track the following activity metrics:
 	•	last_seen_at
 	•	total_events
 	•	total_alerts
@@ -232,13 +250,13 @@ The system should track:
 	•	last_alert_at
 	•	last_risk_update_at
 
-This information is useful for investigations and monitoring device behavior.
+This information is useful for investigations, monitoring, and device behavior analysis.
 
 ⸻
 
 Relationships
 
-Devices are linked to:
+Devices are linked to multiple entities in the NSD system.
 
 Entity	Relationship
 Organization	Device belongs to organization
@@ -253,31 +271,21 @@ Audit Logs	Device changes logged
 
 ⸻
 
-Summary
-
-The Devices API is responsible for managing all monitored devices in the NSD system.
-
-The device is one of the most important entities because the NSD investigation flow often starts from a device:
-
-Device → Event → Risk Score → Alert → Case → Investigation → Report
-
-⸻
-
 Device Lifecycle
 
-Devices in the NSD system follow a lifecycle from registration to decommission.
+Devices follow a lifecycle from registration to decommission.
 
-Typical lifecycle:
+Typical Lifecycle
 	1.	Device registered
 	2.	Device becomes active
 	3.	Device sends events
-	4.	Risk score changes based on behavior
+	4.	Risk score changes
 	5.	Alerts may be generated
-	6.	Device may be linked to cases
-	7.	Device may be suspended or marked compromised
-	8.	Device eventually decommissioned
+	6.	Device linked to cases
+	7.	Device suspended or compromised
+	8.	Device decommissioned
 
-Lifecycle flow example:
+Lifecycle Flow
 
 registered → active → monitored → risk_detected → suspended/compromised → decommissioned
 
@@ -291,15 +299,15 @@ The Devices API must enforce security controls:
 	•	Device updates must be logged in audit logs
 	•	Device status changes must be auditable
 	•	Suspended or compromised devices may be automatically blocked
-	•	API access should require authentication (JWT / API Key)
+	•	API access requires authentication (JWT / API Key)
 	•	Sensitive fields (IP, MAC) should be access controlled
-	•	Device deletion should be logical (soft delete)
+	•	Device deletion must be logical (soft delete)
 
 ⸻
 
 Audit Log Events
 
-The following actions should generate audit log entries:
+The following actions must generate audit log entries:
 
 Action	Description
 device_created	Device registered
@@ -338,4 +346,3 @@ Report
 This flow represents the core investigation pipeline of the NSD platform.
 
 ⸻
-
