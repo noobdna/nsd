@@ -1,50 +1,60 @@
 ⸻
 
 README.md
-# NSD Project
-## Network / Neighborhood Suspicious Detection System
 
-NSD is a suspicious detection and safety support platform  
-designed to detect unusual behavior, security risks, and safety incidents  
+:::writing{variant=“standard” id=“48291”}
+
+NSD Project
+
+Network / Neighborhood Suspicious Detection System
+
+NSD is a behavior-based suspicious detection and safety monitoring platform.
+It is designed to detect unusual behavior, security risks, and safety incidents
 using monitoring systems, IoT devices, GPS tracking, and alert management.
 
 This project focuses on behavior-based detection rather than signature-based detection.
 
----
+⸻
 
-# Project Goals
+Project Status
+
+This project is currently in the architecture and design phase.
+Implementation will begin after architecture and system design are finalized.
+
+⸻
+
+Project Goals
 
 The goal of NSD is to build a platform that can:
+	•	Detect suspicious behavior
+	•	Monitor safety events
+	•	Support incident investigation
+	•	Provide alert and reporting systems
+	•	Integrate IoT and GPS devices
+	•	Provide dashboards for monitoring
+	•	Support community / neighborhood safety
+	•	Support small organizations and security teams
 
-- Detect suspicious behavior
-- Monitor safety events
-- Support incident investigation
-- Provide alert and reporting systems
-- Integrate IoT and GPS devices
-- Provide dashboards for monitoring
-- Support community / neighborhood safety
-- Support small organizations and security teams
+⸻
 
----
-
-# System Overview
+System Overview
 
 NSD consists of multiple components:
+	•	Detection Engine
+	•	Backend API
+	•	Database
+	•	Alert & Notification System
+	•	Frontend Dashboard
+	•	IoT / GPS Device Integration
+	•	Security & Privacy System
+	•	Deployment & Operations
+	•	Monitoring & Logging
+	•	Incident Response System
+	•	Documentation & Website
 
-- Detection Engine
-- Backend API
-- Database
-- Alert & Notification System
-- Frontend Dashboard
-- IoT / GPS Device Integration
-- Security & Privacy System
-- Deployment & Operations
-- Pilot Test & Field Trial
-- Documentation & Website
+⸻
 
----
-
-# System Architecture (High Level)
+System Architecture (High Level)
 
 Devices / Sensors / Logs
 ↓
@@ -60,17 +70,17 @@ Case Management / Investigation
 ↓
 Dashboard / Reports
 
----
+⸻
 
-# Repository Structure
+Repository Structure
 
-NSD/
+nsd/
 │
 ├── README.md
 ├── LICENSE
 ├── .gitignore
 │
-├── Docs/
+├── docs/
 │   ├── system_architecture.md
 │   ├── backend_architecture.md
 │   ├── frontend_architecture.md
@@ -105,116 +115,126 @@ NSD/
 ├── scripts/
 └── tests/
 
----
 
-# Core Features
+⸻
 
-## Detection Engine
+Core Features
+
+Detection Engine
+
 Detect suspicious activities such as:
+	•	Multiple login failures
+	•	Unusual access time
+	•	Repeated password reset
+	•	Unusual device usage
+	•	Abnormal behavior patterns
+	•	Suspicious movement (GPS)
+	•	Device offline / tampering
+	•	Network anomalies
 
-- Multiple login failures
-- Unusual access time
-- Repeated password reset
-- Unusual device usage
-- Abnormal behavior patterns
-- Suspicious movement (GPS)
-- Device offline / tampering
-- Network anomalies
+⸻
 
----
-
-## Risk Scoring
+Risk Scoring
 
 Each event is scored based on risk level:
 
-| Score | Risk Level |
-|------|------------|
-| 0-20 | Low |
-| 21-50 | Medium |
-| 51-80 | High |
-| 81-100 | Critical |
+Score	Risk Level
+0–20	Low
+21–50	Medium
+51–80	High
+81–100	Critical
 
----
 
-## Alert System
+⸻
+
+Alert System
 
 Alerts can be sent via:
+	•	Email
+	•	SMS
+	•	Push Notification
+	•	Dashboard Alerts
+	•	Emergency Alert Mode
 
-- Email
-- SMS
-- Push Notification
-- Dashboard Alerts
-- Emergency Alert Mode
+⸻
 
----
-
-## Dashboard
+Dashboard
 
 The dashboard will provide:
+	•	Event timeline
+	•	Alerts
+	•	Risk score
+	•	Device status
+	•	Map / GPS tracking
+	•	Case management
+	•	Reports
 
-- Event timeline
-- Alerts
-- Risk score
-- Device status
-- Map / GPS tracking
-- Case management
-- Reports
+⸻
 
----
-
-# Security & Privacy
+Security & Privacy
 
 NSD is designed with security-first architecture:
+	•	Zero Trust Architecture
+	•	Encrypted communication
+	•	Access control & RBAC
+	•	Audit logging
+	•	Data retention policy
+	•	Privacy protection
+	•	Evidence preservation
+	•	Secure API authentication
 
-- Zero Trust Architecture
-- Encrypted communication
-- Access control & RBAC
-- Audit logging
-- Data retention policy
-- Privacy protection
-- Evidence preservation
-- Secure API authentication
+⸻
 
----
+Deployment
 
-# Deployment
+NSD can be deployed in multiple environments:
+	•	Cloud environment
+	•	On-premise server
+	•	Hybrid environment
+	•	Edge devices
+	•	IoT gateways
 
-NSD can be deployed using:
+⸻
 
-- Cloud environment
-- On-premise server
-- Hybrid environment
-- Edge devices
-- IoT gateways
-
----
-
-# Future Roadmap
+Future Roadmap
 
 Planned features:
+	•	AI anomaly detection
+	•	Machine learning risk scoring
+	•	Mobile application
+	•	Real-time GPS tracking
+	•	Video / camera integration
+	•	Community safety network
+	•	Automated incident response
+	•	Integration with security systems
+	•	Multi-tenant architecture
 
-- AI anomaly detection
-- Machine learning risk scoring
-- Mobile application
-- Real-time GPS tracking
-- Video / camera integration
-- Community safety network
-- Automated incident response
-- Integration with security systems
-- Multi-tenant architecture
+⸻
 
----
+Roadmap
+	•	Architecture Design
+	•	Database Design
+	•	API Design
+	•	Detection Engine
+	•	Backend API
+	•	Frontend Dashboard
+	•	Alert System
+	•	IoT Integration
+	•	Deployment
+	•	Pilot Test
 
-# License
+⸻
 
-This project will be released under the MIT License.
+License
 
----
+This project is released under the MIT License.
 
-# Author
+⸻
 
-NSD Project  
+Author
+
+NSD Project
 Security / Monitoring / Detection Platform
-
+:::
 
 ⸻
