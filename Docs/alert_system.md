@@ -1,242 +1,265 @@
 ⸻
 
-NSD – Alert & Notification System
+NSD – Alert System Design
 
 Overview
 
-This document describes the alert and notification system used in NSD (Network Suspicious Detection).
+This document describes the alert and notification system for NSD (Network Suspicious Detection).
 
-The alert system is responsible for notifying operators when suspicious activity is detected and ensuring that alerts are tracked, escalated, and resolved properly.
+The alert system is responsible for:
+	•	detecting suspicious activity
+	•	generating alerts
+	•	notifying operators
+	•	managing alert lifecycle
+	•	supporting escalation to investigation cases
+	•	maintaining audit trails
 
-The system must support real-time alerts, alert management, escalation workflows, and audit logging.
+The alert system acts as the bridge between Detection Engine and Investigation / Response workflows.
 
 ⸻
 
-Alert Flow Overview
+Alert Flow
 
-Detection to alert flow:
+High-Level Flow
 
-Device / GPS / Event Data
+Event → Detection Engine → Risk Scoring → Alert → Notification → Case (optional)
+
+Detailed flow:
+
+Device / Log / Sensor
         ↓
-Detection Engine
+      Event
         ↓
-Risk Scoring
+ Detection Engine
         ↓
-Alert Generation
+ Risk Score Calculation
         ↓
-Notification Service
+ Alert Generated
         ↓
-Operator Dashboard / Email / Push
+ Notification Sent
         ↓
-Case Management / Investigation
+ Operator Review
+        ↓
+ Escalate to Case (if needed)
+
+
+⸻
+
+Alert Severity Levels
+
+Alerts should be categorized by severity.
+
+Severity Levels
+
+Level	Name	Description
+1	Info	Informational event
+2	Low	Minor suspicious behavior
+3	Medium	Suspicious activity
+4	High	High-risk activity
+5	Critical	Immediate action required
+
+Example
+
+Event	Severity
+Single failed login	Low
+Multiple failed logins	Medium
+Login from unusual country	High
+Brute force attack	Critical
+Data exfiltration	Critical
 
 
 ⸻
 
 Alert Types
 
-NSD supports multiple alert categories.
+The system should support multiple alert categories.
 
-1. Geofence Alert
+Alert Categories
+	•	authentication_alert
+	•	network_alert
+	•	device_alert
+	•	behavior_alert
+	•	location_alert
+	•	anomaly_alert
+	•	system_alert
+	•	security_alert
+	•	policy_alert
+	•	investigation_alert
 
-Triggered when a device enters or exits a restricted or monitored area.
+Example Alert Types
 
-Examples:
-	•	Device enters restricted area
-	•	Device leaves safe zone
-	•	Device remains in restricted area too long
+Alert Type	Description
+multiple_failed_logins	Multiple login failures
+unusual_login_time	Login at unusual hours
+unusual_location	Login from unusual location
+device_offline	Device stopped sending data
+device_tampering	Device tampering suspected
+abnormal_network_traffic	Unusual network traffic
+gps_boundary_violation	GPS left allowed area
+excessive_operations	Too many operations
+privilege_escalation	Permission escalation
+data_access_spike	Sudden large data access
 
-⸻
-
-2. Behavior Alert
-
-Triggered when unusual behavior patterns are detected.
-
-Examples:
-	•	Activity during unusual hours
-	•	Repeated abnormal movement
-	•	Suspicious repeated actions
-	•	Abnormal device usage pattern
-
-⸻
-
-3. Device Alert
-
-Triggered when device status indicates possible tampering or malfunction.
-
-Examples:
-	•	Device offline unexpectedly
-	•	Battery removed
-	•	Signal lost
-	•	Device reset detected
 
 ⸻
 
-4. Risk Score Alert
+Alert Object Structure
 
-Triggered when combined risk score exceeds a threshold.
+Alert JSON Example
 
-Examples:
-	•	Multiple minor anomalies combined
-	•	Repeated suspicious events
-	•	Pattern-based risk escalation
-
-⸻
-
-Alert Severity Levels
-
-Each alert has a severity level.
-
-Level	Name	Description
-1	Low	Minor anomaly
-2	Medium	Suspicious behavior
-3	High	Highly suspicious
-4	Critical	Immediate action required
-
-Severity is calculated using:
-	•	Risk score
-	•	Alert type
-	•	Event frequency
-	•	Time of occurrence
-	•	Device history
-
-⸻
-
-Alert Data Model
-
-Alert information stored in database:
-
-Field	Description
-alert_id	Alert unique ID
-device_id	Device ID
-alert_type	Type of alert
-severity	Alert severity
-risk_score	Calculated risk score
-location	GPS location
-timestamp	Alert time
-status	Open / Investigating / Closed
-assigned_to	Operator
-description	Alert details
-created_at	Creation time
-updated_at	Last update
+{
+  "alert_id": "ALT-20260330-0001",
+  "title": "Multiple Failed Login Attempts",
+  "description": "5 failed login attempts detected within 10 minutes",
+  "severity": "medium",
+  "status": "open",
+  "alert_type": "authentication_alert",
+  "source_type": "user_account",
+  "source_id": "USR-001",
+  "device_id": "DEV-002",
+  "location_id": "LOC-003",
+  "risk_score": 72,
+  "event_count": 5,
+  "first_event_time": "2026-03-30T10:00:00Z",
+  "last_event_time": "2026-03-30T10:08:00Z",
+  "created_at": "2026-03-30T10:09:00Z",
+  "assigned_to": null,
+  "case_id": null,
+  "organization_id": "ORG-001"
+}
 
 
 ⸻
 
 Alert Status Lifecycle
 
-Alert status transitions:
+Alerts should have a lifecycle.
 
-Open → Investigating → Resolved → Closed
-
-Status definitions:
+Alert Status
 
 Status	Description
-Open	New alert created
-Investigating	Operator reviewing
-Resolved	Issue resolved
-Closed	Case completed
+open	Newly created alert
+acknowledged	Operator acknowledged
+investigating	Under investigation
+escalated	Escalated to case
+resolved	Issue resolved
+closed	Closed
+false_positive	False alert
+
+Lifecycle Flow
+
+open → acknowledged → investigating → resolved → closed
+                        ↓
+                     escalated → case
 
 
 ⸻
+
+Notification System
+
+Alerts should trigger notifications depending on severity.
 
 Notification Methods
-
-The system should support multiple notification channels.
-
-Notification Channels
+	•	Email
+	•	SMS
+	•	Push notification
+	•	Slack / Teams
 	•	Dashboard alert
-	•	Email notification
-	•	SMS (optional)
-	•	Mobile push notification
-	•	Slack / Teams (optional)
-	•	Webhook (for external systems)
+	•	Webhook
+	•	API callback
+	•	SIEM integration
+
+Notification Rules Example
+
+Severity	Notification
+Info	Dashboard only
+Low	Dashboard
+Medium	Email
+High	Email + Push
+Critical	Email + SMS + Push
+
 
 ⸻
 
-Escalation Rules
+Alert Escalation Rules
 
-If alerts are not handled within a certain time, escalation occurs.
+Alerts may automatically escalate.
 
-Example escalation policy:
+Example Escalation Rules
 
-Severity	Escalation Time
-Low	No escalation
-Medium	1 hour
-High	15 minutes
-Critical	Immediate
+Condition	Action
+Critical alert	Create case automatically
+Same alert repeated 5 times	Escalate
+Alert not acknowledged for 30 min	Escalate
+Multiple alerts from same device	Escalate
+Risk score > 85	Escalate
 
-Escalation actions:
-	•	Notify supervisor
-	•	Send additional notifications
-	•	Create incident case automatically
 
 ⸻
 
-Alert Dashboard Features
+Alert Correlation
 
-The frontend dashboard should allow operators to:
-	•	View alert list
-	•	Filter alerts by severity
-	•	Filter by device / location
-	•	View alert details
-	•	Assign alert to operator
-	•	Change alert status
-	•	Create investigation case
-	•	View alert history
-	•	View alert map
-	•	Export alert report
+The system should correlate alerts.
 
-⸻
+Correlation Examples
 
-Alert Logging & Audit Trail
+Situation	Correlated Alert
+Failed login + unusual location	Account takeover
+Device offline + GPS movement	Device theft
+Multiple network alerts	Intrusion
+Privilege escalation + data access spike	Insider threat
 
-All alert-related actions must be logged.
-
-Audit log should record:
-	•	Alert created
-	•	Alert updated
-	•	Status change
-	•	Assignment change
-	•	Escalation triggered
-	•	Notification sent
-	•	Alert closed
-
-Audit fields:
-	•	log_id
-	•	alert_id
-	•	action
-	•	user_id
-	•	timestamp
-	•	notes
+Alert correlation improves detection accuracy and reduces false positives.
 
 ⸻
 
-Future Enhancements
+Alert Dashboard Information
 
-Planned improvements:
-	•	AI-based alert prioritization
-	•	Alert correlation (multiple alerts grouped)
-	•	False positive detection
-	•	Automatic device lock / disable
-	•	Predictive alerting
-	•	Risk trend analysis
-	•	Heatmap visualization
-	•	Incident timeline view
+Dashboard should display:
+	•	Open alerts
+	•	Alerts by severity
+	•	Alerts by location
+	•	Alerts by device
+	•	Alerts timeline
+	•	Alerts heatmap
+	•	Alert trends
+	•	Top risky devices
+	•	Top risky users
+	•	Escalated cases
+	•	Response time metrics
+
+⸻
+
+Metrics for Alert System
+
+Important metrics:
+
+Metric	Description
+alerts_per_day	Number of alerts per day
+critical_alerts	Critical alerts count
+mean_time_to_acknowledge	Time to acknowledge
+mean_time_to_resolve	Time to resolve
+escalation_rate	Alerts escalated to cases
+false_positive_rate	False alert rate
+alerts_by_type	Alerts per category
+alerts_by_device	Alerts per device
+
+These metrics help evaluate detection performance.
 
 ⸻
 
 Summary
 
-The NSD Alert System is responsible for:
-	•	Generating alerts from detection engine
-	•	Assigning severity and risk score
-	•	Notifying operators
-	•	Managing alert lifecycle
-	•	Supporting escalation workflow
-	•	Logging all actions for audit
-	•	Integrating with dashboard and case management
+The Alert System is responsible for:
+	•	generating alerts from detection engine
+	•	categorizing alerts
+	•	managing alert lifecycle
+	•	notifying operators
+	•	escalating to investigation cases
+	•	correlating alerts
+	•	providing dashboard visibility
+	•	tracking response metrics
 
-This system is critical for real-time monitoring and incident response operations.
+The alert system is a core component of NSD and connects Detection Engine, Case Management, Notification System, and Dashboard.
 
 ⸻
