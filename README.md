@@ -1,13 +1,11 @@
-
 ⸻
 
-NSD README
+:::writing{variant=“standard” id=“91572”}
 
-:::writing{variant=“standard” id=“84251”}
+NSD – Network / Neighborhood Suspicious Detection System
 
-NSD Project
-
-Network / Neighborhood Suspicious Detection System
+Behavior-based suspicious activity detection and safety monitoring platform.
+Detecting suspicious behavior before incidents happen.
 
 ⸻
 
@@ -24,7 +22,7 @@ NSD focuses on detecting behavior anomalies and suspicious patterns rather than 
 
 ⸻
 
-Philosophy
+Concept
 
 Most security systems detect attacks.
 NSD detects suspicious behavior.
@@ -32,7 +30,7 @@ NSD detects suspicious behavior.
 Attacks are not the only problem.
 Human mistakes, misuse, and abnormal behavior often cause incidents.
 
-NSD is designed to detect “smoke before fire.”
+NSD detects “smoke before fire.”
 
 ⸻
 
@@ -50,13 +48,6 @@ NSD can be used for:
 	•	Remote site monitoring
 	•	GPS movement monitoring
 	•	Security incident investigation support
-
-⸻
-
-Project Status
-
-NSD is currently in early development / architecture phase.
-This repository mainly contains architecture design, documentation, and prototype backend implementation.
 
 ⸻
 
@@ -218,6 +209,13 @@ Technology Stack (Planned)
 
 ⸻
 
+Project Status
+
+NSD is currently in early development / architecture phase.
+This repository mainly contains architecture design, documentation, and prototype backend implementation.
+
+⸻
+
 Future Roadmap
 
 Planned features:
@@ -260,4 +258,3 @@ Security / Monitoring / Detection Platform
 :::
 
 ⸻
-
