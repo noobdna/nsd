@@ -1,8 +1,6 @@
 ⸻
 
-README.md
-
-:::writing{variant=“standard” id=“48291”}
+:::writing{variant=“standard” id=“59324”}
 
 NSD Project
 
@@ -19,7 +17,23 @@ This project focuses on behavior-based detection rather than signature-based det
 Project Status
 
 This project is currently in the architecture and design phase.
-Implementation will begin after architecture and system design are finalized.
+Implementation and prototype development are in progress.
+
+⸻
+
+Project Concept
+
+Traditional security systems mainly detect malware or known attacks.
+However, many real-world incidents are caused by:
+	•	Human mistakes
+	•	Suspicious behavior patterns
+	•	Account misuse
+	•	Insider threats
+	•	Device tampering
+	•	Abnormal operation patterns
+
+NSD focuses on detecting behavior anomalies and suspicious patterns
+rather than only detecting malware or known attack signatures.
 
 ⸻
 
@@ -97,16 +111,6 @@ nsd/
 │   ├── monitoring_observability.md
 │   ├── operations_runbook.md
 │   └── api/
-│       ├── api_index.md
-│       ├── api_authentication.md
-│       ├── api_users.md
-│       ├── api_devices.md
-│       ├── api_events.md
-│       ├── api_alerts.md
-│       ├── api_cases.md
-│       ├── api_evidence.md
-│       ├── api_reports.md
-│       └── api_admin.md
 │
 ├── backend/
 ├── frontend/
@@ -196,6 +200,17 @@ NSD can be deployed in multiple environments:
 
 ⸻
 
+Technology Stack (Planned)
+	•	Backend: FastAPI / Python
+	•	Database: PostgreSQL
+	•	Frontend: React / Dashboard UI
+	•	Detection Engine: Python / Rule Engine / ML (future)
+	•	Infrastructure: Cloud / Docker / Linux
+	•	Monitoring: Logging / Alert System
+	•	Security: Zero Trust / Access Control / Audit Logging
+
+⸻
+
 Future Roadmap
 
 Planned features:
@@ -211,7 +226,7 @@ Planned features:
 
 ⸻
 
-Roadmap
+Development Roadmap
 	•	Architecture Design
 	•	Database Design
 	•	API Design
