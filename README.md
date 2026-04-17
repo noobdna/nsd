@@ -2,7 +2,7 @@
 
 :::writing{variant=“standard” id=“91572”}
 
-NSD – Network / Neighborhood Suspicious Detection System
+NSD – Network / Network Smokie Detection System
 
 Behavior-based suspicious activity detection and safety monitoring platform.
 Detecting suspicious behavior before incidents happen.
